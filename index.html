@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packers and Movers</title>
+    <style>
+        /* Resetting styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #009688, #00796b);
+            color: #fff;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffdd57;
+        }
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background-image: url('https://example.com/hero-image.jpg'); /* Replace with actual image URL */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            animation: fadeIn 1.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ffdd57;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+        }
+        .hero button {
+            padding: 0.8rem 1.8rem;
+            background: #ffdd57;
+            color: #333;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .hero button:hover {
+            background: #ffc107;
+            transform: translateY(-3px);
+        }
+        /* Services Section */
+        .services {
+            padding: 3rem 1rem;
+            background-color: #fff;
+            text-align: center;
+        }
+        .services h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #00796b;
+        }
+        .service-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+        .service {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: 45%;
+            margin: 1rem 0;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        .service h4 {
+            font-size: 1.5rem;
+            color: #009688;
+            margin-bottom: 0.5rem;
+        }
+        .service p {
+            font-size: 1rem;
+            color: #555;
+        }
+        /* Contact Section */
+        .contact {
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, #009688, #00796b);
+            color: #fff;
+            text-align: center;
+        }
+        .contact h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.9rem;
+            margin: 0.7rem 0;
+            border: none;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #ffdd57;
+            color: #333;
+            font-weight: bold;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        input[type="submit"]:hover {
+            background-color: #ffc107;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Packers and Movers</h1>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Reliable Moving Solutions for Homes & Businesses</h2>
+            <p>We provide top-notch services to make your move smooth, stress-free, and secure. Let our experts handle every detail of your relocation.</p>
+            <button onclick="location.href='#contact'">Get a Free Quote</button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h3>Our Services</h3>
+        <div class="service-box">
+            <div class="service">
+                <h4>Residential Moving</h4>
+                <p>Professional packing, transporting, and unpacking of your household items with care.</p>
+            </div>
+            <div class="service">
+                <h4>Office Relocation</h4>
+                <p>Efficient office relocations to keep your business moving without downtime.</p>
+            </div>
+            <div class="service">
+                <h4>Storage Solutions</h4>
+                <p>Secure storage options for both short and long-term needs.</p>
+            </div>
+            <div class="service">
+                <h4>Vehicle Transportation</h4>
+                <p>Safe and reliable vehicle transport services for your car or bike.</p>
+            </div>
+            <div class="service">
+                <h4>Packing and Unpacking</h4>
+                <p>High-quality materials and expert handling for safe packing and unpacking.</p>
+            </div>
+            <div class="service">
+                <h4>Long-Distance Moving</h4>
+                <p>Efficient moving solutions for both local and long-distance relocations.</p>
+            </div>
+            <div class="service">
+                <h4>International Moving</h4>
+                <p>Comprehensive international moving services to any destination worldwide.</p>
+            </div>
+            <div class="service">
+                <h4>Corporate Moving</h4>
+                <p>Specialized services tailored for corporate offices and businesses.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h3>Contact Us</h3>
+        <form action="#">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+            <input type="submit" value="Send Message">
+        </form>
+    </section>
+
+</body>
+</html>
