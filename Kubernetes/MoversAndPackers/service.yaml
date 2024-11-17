@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: movers-and-packers
+  namespace: movers-and-packers
+spec:
+  selector:
+    app: movers-and-packers
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer

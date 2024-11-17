@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movers-and-packers
+  namespace: movers-and-packers
+  labels:
+    app: movers-and-packers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movers-and-packers
+  template:
+    metadata:
+      labels:
+        app: movers-and-packers
+    spec:
+      containers:
+      - name: movers-and-packers
+        image: chaitanyatholada/movers-and-packers:latest
+        ports:
+        - containerPort: 80
