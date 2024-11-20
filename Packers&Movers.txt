@@ -1,0 +1,240 @@
+Web Apllication:
+----------------
+
+index.html
+
+======================
+
+Jenkins:
+---------
+
+sudo su
+
+apt update && apt upgrade -y
+
+JAVA Insatllation:
+------------------
+
+java -version
+
+apt install openjdk-21-jre-headless -y
+
+JENKINS Insatllation:
+---------------------
+
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install jenkins -y
+
+jenkins --version
+
+Start Jenkins:
+--------------
+
+sudo systemctl enable jenkins
+
+sudo systemctl start jenkins
+
+sudo systemctl status jenkins
+
+Accessing Jenkins:
+------------------
+
+localhost:8080
+
+Administrator password: cat /var/lib/jenkins/secrets/initialAdminPassword
+
+==========================================================================
+
+Nginx:
+------
+
+apt install nginx -y
+
+nginx -version
+
+localhost:80
+
+// cd /var/www/html
+
+cd /usr/share/nginx/html/
+
+vim index.html
+
+sudo systemctl restart nginx
+
+sudo systemctl status nginx
+
+
+=============================================================================
+
+
+Docker:
+-------
+
+// apt install docker.io -y
+
+DOCKER Insatllation:
+-------------------
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+docker --version
+
+sudo systemctl start docker
+
+sudo systemctl status docker
+
+
+DOCKER:
+-------
+
+sudo usermod -aG docker jenkins
+newgrp docker
+
+sudo systemctl restart jenkins
+
+vim Dockerfile
+
+docker build -t movers-and-packers .
+
+docker images
+
+docker run -d -p 8000:80 movers-and-packers
+
+docker ps
+
+
+
+===============================================
+
+TRIVY:
+------
+
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy -y
+
+trivy --version
+
+trivy fs .
+trivy fs --format table -o Files_Scan_report.html
+trivy fs . > trivyfs.txt 
+
+trivy image <Image_Name>
+trivy image --format table -o Image_Scan_report.html chaitanyatholada/movers-and-packers:latest
+trivy image chaitanyatholada/movers-and-packers:latest > trivyimage.txt
+
+trivy repo <git repo link>
+
+=======================================================
+
+SonarQube:
+----------
+
+docker pull sonarqube
+
+docker run -d -p 9000:9000 sonarqube
+
+localhost:9000
+
+$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=MoversAndPackers -Dsonar.projectKey=MoversAndPackers
+
+
+
+============================================================
+
+EKS:
+---
+
+aws eks --region <your_aws_region> update-kubeconfig --name <your_eks_cluster_name>
+
+aws eks --region us-east-1 update-kubeconfig --name Divine
+
+==============================================================
+
+ArgoCD:
+------
+
+Install Argo CD:
+---------------
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml
+
+Install Argo CD CLI:
+-------------------
+sudo curl --silent --location -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/v2.4.7/argocd-linux-amd64
+
+sudo chmod +x /usr/local/bin/argocd
+
+Expose argocd-server:
+--------------------
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+
+export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'`
+
+password:
+--------
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+
+
+========================================================
+
+
+Prometheus:
+----------
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm install prometheus prometheus-community/prometheus --namespace prometheus --create-namespace
+
+kubectl get all -n prometheus
+
+
+
+==================================================================
+
+Grafana:
+-------
+
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+helm install grafana grafana/grafana --namespace grafana --create-namespace
+
+kubectl get all -n grafana
+
+password:
+--------
+
+kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+
+
+
